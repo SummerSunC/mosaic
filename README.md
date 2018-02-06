@@ -19,8 +19,8 @@ mosaic是一个合成马赛克图片([wiki](https://en.wikipedia.org/wiki/Photog
 ```
 
 ### 运行效果
-![原始图片](http://onoad5uf7.bkt.clouddn.com/origin.jpg)
+![原始图片](img/origin.jpg)
 
-![合成后图片](http://onoad5uf7.bkt.clouddn.com/mosaic.jpg)
+![合成后图片](img/mosaic.jpg)
 
-![合成细节](http://onoad5uf7.bkt.clouddn.com/detail.jpg)
+![合成细节](img/detail.jpg)
