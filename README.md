@@ -1,32 +1,26 @@
 # mosaic
+mosaic是一个合成马赛克图片([wiki](https://en.wikipedia.org/wiki/Photographic_mosaic),[中文百科](https://baike.baidu.com/item/%E9%A9%AC%E8%B5%9B%E5%85%8B%E6%8B%BC%E5%9B%BE/8933804?fr=aladdin))的工具
 
-This utility can be used to generate [photo-mosaic](http://en.wikipedia.org/wiki/Photographic_mosaic) images, to use it you must have Python installed, along with the [Pillow](http://pillow.readthedocs.org/en/latest/) imaging library.
+> 此项目fork自[codebox/mosaic](https://github.com/codebox/mosaic),原项目是基于python2.X，本项目将其升级到了python3.X。
+组合图片的核心代码仍使用原项目代码，本项目修改了部分代码提供了定制化能力
 
-As well as an image to use for the photo-mosaic ([most common image formats are supported](http://pillow.readthedocs.org/en/latest/handbook/image-file-formats.html)), you will need a large collection of different images to be used as tiles. The tile images can be any shape or size (the utility will automatically crop and resize them) but for good results you will need a lot of them - a few hundred at least. One convenient way of generating large numbers of tile images is to [extract screenshots from video files](https://trac.ffmpeg.org/wiki/Create%20a%20thumbnail%20image%20every%20X%20seconds%20of%20the%20video) using [ffmpeg](https://www.ffmpeg.org/).
+## 基本命令
 
-Run the utility from the command line, as follows:
+### 参数
+```
+-i [--image]     : 原图片地址
+-t [--tiles_dir] : 素材目录地址
+-o [--outfile]   : 输出文件地址 【可选 默认当前目录】
+```
 
-<pre>python mosaic.py &lt;image&gt; &lt;tiles directory&gt;
-</pre>
+### 运行
+```
+> python3 -i "/home/Downloads/origin.jpg" -t "/home/Downloads/Pool"
+```
 
-*   The `image` argument should contain the path to the image for which you want to build the mosaic
-*   The `tiles directory` argument should contain the path to the directory containing the tile images (the directory will be searched recursively, so it doesn't matter if some of the images are contained in sub-directories)
+### 运行效果
+![原始图片](http://onoad5uf7.bkt.clouddn.com/origin.jpg)
 
-For example:
+![合成后图片](http://onoad5uf7.bkt.clouddn.com/mosaic.jpg)
 
-<pre>python mosaic.py game_of_thrones_poster.jpg /home/admin/images/screenshots
-</pre>
-
-The images below show an example of how the mosaic tiles are matched to the details of the original image:
-
-![Mosaic Image](http://codebox.org.uk/graphics/mosaic/mosaic_small.jpg)  
-<span class="smallText">Original</span>
-
-[![Mosaic Image Detail](http://codebox.org.uk/graphics/mosaic/mosaic_detail.jpg)](http://codebox.org.uk/graphics/mosaic/mosaic_large.jpg)  
-<span class="smallText">Mosaic Detail (click through for [full mosaic](http://codebox.org.uk/graphics/mosaic/mosaic_large.jpg) ~15MB)</span>
-
-Producing large, highly detailed mosaics can take some time - you should experiment with the various [configuration parameters](https://github.com/codebox/mosaic/blob/master/mosaic.py#L6) explained in the source code to find the right balance between image quality and render time.
-
-In particular the [TILE_MATCH_RES](https://github.com/codebox/mosaic/blob/master/mosaic.py#L8) parameter can have a big impact on both these factors - its value determines how closely the program examines each tile when trying to find the best fit for a particular segment of the image. Setting TILE_MATCH_RES to '1' simply finds the average colour of each tile, and picks the one that most closely matches the average colour of the image segment. As the value is increased, the tile is examined in more detail. Setting TILE_MATCH_RES to equal TILE_SIZE will cause the utility to examine each pixel in the tile individually, producing the best possible match (during my testing I didn't find a very noticeable improvement beyond a value of 5, but YMMV).
-
-By default the utility will configure itself to use all available CPUs/CPU-cores on the host system, if you want to leave some processing power spare for other tasks then adjust the [WORKER_COUNT](https://github.com/codebox/mosaic/blob/master/mosaic.py#L12) parameter accordingly.
+![合成细节](http://onoad5uf7.bkt.clouddn.com/detail.jpg)
